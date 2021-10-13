@@ -77,13 +77,14 @@ $(document).ready(function () {
     // POST para agregar un mensaje
     $("#Agregar-Mensaje").click(function () {
         var urlServicio = "http://localhost:8080/Message/save";
-        var menssage = $("#Message").val();
+        var message = $("#Message").val();
         var client = parseInt($("#Client-Message-ID").val());
-        var car = parseInt($("#Car-Message-ID").val());        
+        var car = parseInt($("#Car-Message-ID").val()); 
+        console.log(car)       
         $.ajax({
             url: urlServicio,
             type: "POST",
-            data: JSON.stringify({ "messageText":menssage, "client":{"idClient":client}, "car":{"idCar":car}}),
+            data: JSON.stringify({ "messageText":message, "client":{"idClient":client}, "car":{"idCar":car}}),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             cache: false,
