@@ -5,123 +5,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta http-equiv="cache-control" content="no-cache"/>
-    <meta http-equiv="expires" content="0"/>
-    <meta http-equiv="pragma" content="no-cache"/>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/estilos.css">
-    
-    <title>Alquilar Carros</title>
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" language="javascript" src="js/ajax.js"></script>    
+    <script type="text/javascript" language="javascript" src="js/ajax.js"></script>
+    
+    <title>Home</title>
 </head>
 <body>
-    <h1 class='title'>ALQUILER DE CARROS</h1>
-    <div class='container container-table'>
-        <h4>Tabla Carros</h4>
-        <div class='table-responsive'>
-            <table class='table' id='tabla-carros'>
-                <tr>
-                    <th>ID Carro</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Category_ID</th>
-                </tr>
-            </table>
+    <header class="header">
+        <div>
+            <a href="index.html">
+            <h1 class="text-center title">ALQUILER DE CARROS</h1>
+            </a>
+            <nav class="nav">
+                <a href="carro.html">Carros</a>
+                <a href="cliente.html">Clientes</a>
+                <a href="mensage.html">Mensajes</a>
+                <a href="gama.html">Gamas</a>
+                <a href="reservacion.html">Reservaciones</a>
+            </nav>            
         </div>
-        <button class='margin-button' id="Tabla-Carro">Actualizar Tabla</button>
-        <input type="number" class='form-control' placeholder="Escribe ID" id='ID-Carro' />
-        <br>
-        <button class='margin-button' id="buscar-id-carro">Buscar ID</button>
-        <button class='margin-button' id="Borrar-Carro">Borrar Carro</button>
-        <form>
-            <h5>Agregar Carro</h5>
-            <div class='mb-3'>
-                <label for='ID'>ID</label>
-                <input type="number" class='form-control' placeholder="Escribe ID" id='ID-Agregar-Carro' />
+    </header>
+
+    <section class="container seccion">
+        <h2 class="text-center nosotros">Sobre Nosotros</h2>
+        <div class="iconos-nosotros">
+            <div class="icono">
+                <img src="img/icono1.svg" alt="Icono Seguridad">
+                <h3 class="encabezado">Seguridad</h3>
+                <p class="relleno">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione reiciendis in omnis placeat incidunt,
+                    corrupti voluptatum alias ducimus nostrum autem asperiores, libero expedita pariatur nam esse repudiandae
+                    dolorum temporibus voluptatibus?</p>
             </div>
-            <div class='mb-3'>
-                <label for='BRAND'>Marca</label>
-                <input type="text" class="form-control" placeholder="Escribe la marca" id='Marca-Carro' />
+        
+            <div class="icono">
+                <img src="img/icono2.svg" alt="Icono Mejor Precio">
+                <h3 class="encabezado">El Mejor Precio</h3>
+                <p class="relleno">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione reiciendis in omnis placeat incidunt,
+                    corrupti voluptatum alias ducimus nostrum autem asperiores, libero expedita pariatur nam esse repudiandae
+                    dolorum temporibus voluptatibus?</p>
             </div>
-            <div class='mb-3'>
-                <label for='Model'>Model</label>
-                <input type="number" class="form-control" placeholder="Escribe el modelo" id='Modelo-Carro' />
+        
+            <div class="icono">
+                <img src="img/icono3.svg" alt="Icono A Tiempo">
+                <h3 class="encabezado">A Tiempo</h3>
+                <p class="relleno">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione reiciendis in omnis placeat incidunt,
+                    corrupti voluptatum alias ducimus nostrum autem asperiores, libero expedita pariatur nam esse repudiandae
+                    dolorum temporibus voluptatibus?</p>
             </div>
-            <div class='mb-3'>
-                <label for='CATEGORY_ID'>Category_ID</label>
-                <input type="number" class="form-control" placeholder="Escribe Category_ID" id='Category-ID-Carro' />
-            </div>
-        </form>
-        <button class='margin-button' id="Agregar-Carro">Agregar</button>
-        <button class='margin-button' id="Actualizar-Carro">Actualizar</button>
-    </div>    
-    <div class='container container-table'>
-        <h4>Tabla Cliente</h4>
-        <table class='table' id='tabla-cliente'>
-            <tr>
-                <th>ID Cliente</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Edad</th>
-            </tr>
-        </table>
-        <button class='margin-button' id="Boton-Cliente">Actualizar Tabla</button>
-        <input type="number" class='form-control' placeholder="Escribe ID" id='ID-Cliente'/>
-        <br>
-        <button class='margin-button' id="buscar-id-cliente">Buscar ID</button>
-        <form>
-            <h5>Agregar Cliente</h5>
-            <div class='mb-3'>
-                <label for='ID'>ID</label>
-                <input type="number" class='form-control' placeholder="Escribe ID" id='Agregar-ID-Cliente' />
-            </div>
-            <div class='mb-3'>
-                <label for='Name'>Nombre</label>
-                <input type="text" class="form-control" placeholder="Escribe Nombre" id='Nombre-Cliente' />
-            </div>
-            <div class='mb-3'>
-                <label for='Email'>Email</label>
-                <input type="email" class="form-control" placeholder="Escribe Email" id='Email-Cliente' />
-            </div>
-            <div class='mb-3'>
-                <label for='Age'>Edad</label>
-                <input type="number" class="form-control" placeholder="Escribe edad" id='Edad-Cliente' />
-            </div>
-        </form>
-        <button class='margin-button' id="Agregar-Cliente">Agregar</button>
-        <button class='margin-button' id="Actualizar-Cliente">Actualizar</button>
-    </div>
-    <div class='container container-table'>        
-        <h4>Tabla Mensaje</h4>
-        <table class='table' id='tabla-mensaje'>
-            <tr>
-                <th>ID Mensaje</th>
-                <th>Mensaje</th>
-            </tr>
-        </table>
-        <button class='margin-button' id="Boton-Mensaje">Actualizar Tabla</button>
-        <input type="number" class='form-control' placeholder="Escribe ID" id='ID-Mensaje' />
-        <br>
-        <button class='margin-button' id="buscar-id-mensaje">Buscar ID</button>
-        <button class='margin-button' id='Borrar-Mensaje'>Borrar Mensaje</button>
-        <br>
-        <form>
-            <h5>Registo de Mensaje</h5>
-            <div class='mb-3'>
-                <label for='ID'>ID</label>
-                <input type="number" class='form-control' placeholder="Escribe ID" id='Agregar-ID-Mensaje' />
-            </div>
-            <div class='mb-3'>
-                <label for='Mensaje'>Mensaje</label>
-                <input type="text" class="form-control" placeholder="Escribe tu mensaje" id='Mensaje-Texto' />
-            </div>
-        </form>
-        <button class='margin-button' id="Agregar-Mensaje">Agregar</button>
-        <button class='margin-button' id="Actualizar-Mensaje">Actualizar</button>
-    </div>
+        </div>
+    </section>
+
+    <section class="section-cars">
+        <div class="container contenido-contacto">
+            <h2 class="nosotros">Encuentra el vehículo deseado</h2>
+            <p class="relleno">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis fugit, eos reprehenderit</p>
+            <a href="#" class="boton boton-amarillo">Carros</a>
+        </div>
+    </section>
+
+    <footer class="copyright">
+        <div class="container contenedor-footer">
+            <nav class="nav-footer">
+                <a href="#">Nosotros</a>
+                <a href="#">Anuncios</a>
+                <a href="#">Blog</a>
+                <a href="#">Contacto</a>
+            </nav>
+            <p class="copyright">Todos los Derechos Reservados 2021 &copy;</p>
+        </div>
+    </footer>
 </body>
 </html>

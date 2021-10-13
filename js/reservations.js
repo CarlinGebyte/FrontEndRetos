@@ -1,6 +1,7 @@
 $(document).ready(function () {
     jQuery.support.cors = true; 
 
+    // GET para actualizar la tabla de Reservaciones
     $("#upd-reservation").click(function (){
         var urlServicio = "http://localhost:8080/Reservation/all";
         console.log(urlServicio)
@@ -68,6 +69,7 @@ $(document).ready(function () {
         })
     })
 
+    // POST para agregar una reservación
     $("#Add-Reservation").click(function (){
         var urlServicio = "http://localhost:8080/Reservation/save";
         var startDate = $("#Date-Start-Reservation").val();

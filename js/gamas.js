@@ -1,6 +1,7 @@
 $(document).ready(function () {
     jQuery.support.cors = true; 
 
+    // GET para actualizar la tabla de Gamas
     $("#upd-gama").click(function (){
         var urlServicio = "http://localhost:8080/Gama/all";
         console.log(urlServicio)
@@ -59,6 +60,7 @@ $(document).ready(function () {
         })
     })
 
+    // POST para agregar una gama
     $("#Add-Gama").click(function (){
         var urlServicio = "http://localhost:8080/Gama/save";
         var name = $("#Name-Gama").val();
