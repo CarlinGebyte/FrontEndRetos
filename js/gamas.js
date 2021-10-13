@@ -32,8 +32,25 @@ $(document).ready(function () {
                     descripcion = result[i]["description"];
                     car = result[i]["cars"];
 
+                    for (var j = 0; j<car.length;  j++){
+                        if (JSON.stringify(car) != "[]"){
+                            delete car[j]["idCar"]
+                            delete car[j]["gama"]["idGama"];
+                            for (var k = 0; k < car[j]["reservations"].length;  k++){
+                                delete car[j]["reservations"][k]["idReservation"]
+                                delete car[j]["reservations"][k]["client"]["idClient"];
+                                delete car[j]["reservations"][k]["client"]["password"];
+                            }
+                            for (var k = 0; k<car[j]["messages"].length;  k++){
+                                delete car[j]["messages"][k]["idMessage"];
+                            }
+                        }
+                    }
+                    
+                    car = JSON.stringify(car);
+
                     salidaFila = "<tr><td>" + nombre + "</td><td>" + descripcion + "</td><td>" +
-                        car + "</td><tr>";
+                        car + "</td></tr>";
 
                     $("#gama-table tbody").append(salidaFila);
 

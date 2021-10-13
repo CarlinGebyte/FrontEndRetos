@@ -36,6 +36,27 @@ $(document).ready(function () {
                     car = result[i]["car"];
                     client = result[i]["client"];
                     score = result[i]["score"];
+
+                    if (JSON.stringify(car) != "[]"){
+                        delete car["idCar"];
+                        delete car["gama"]["idGama"];
+                    }else{
+                        console.log(JSON.stringify(car));
+                    }
+                    if (JSON.stringify(client) != "[]"){
+                        delete client["idClient"];
+                        delete client["password"];
+                    }else{
+                        console.log(JSON.stringify(car));
+                    }
+
+                    for (var j = 0; j<car["messages"].length;  j++){
+                        delete car["messages"][j]["idMessage"];
+                    }
+                    
+                    car = JSON.stringify(result[i]["car"]);
+                    client = JSON.stringify(result[i]["client"]);
+
                     salidaFila = "<tr><td>" + startDate + "</td><td>" + devolutionDate + "</td><td>" +
                         status + "</td><td>" + car + "</td><td>" + client + "</td><td>" + 
                         score + "</td><tr>";

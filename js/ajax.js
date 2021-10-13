@@ -37,7 +37,34 @@ $(document).ready(function () {
                     gama = result[i]["gama"];
                     mensajes = result[i]["messages"];
                     reservaciones = result[i]["reservations"];
+                    
+                    for (var k = 0;  k<reservaciones.length;  k++){
+                        if (JSON.stringify(reservaciones) != "[]"){
+                            delete reservaciones[k]["idReservation"];
+                            delete reservaciones[k]["client"]["idClient"];
+                            delete reservaciones[k]["client"]["password"];
+                        }else{
+                            console.log(JSON.stringify(reservaciones));
+                        }
+                    }
 
+                    for (var j = 0;  j<mensajes.length;  j++){
+                        if (JSON.stringify(mensajes) != "[]"){
+                            delete mensajes[j]["idMessage"]
+                        }else{
+                            console.log(JSON.stringify(mensajes));
+                        }
+                    }
+
+                    if (JSON.stringify(gama) != "[]"){
+                        delete gama["idGama"]
+                    }else{
+                        console.log(JSON.stringify(gama));
+                    }
+                    gama = JSON.stringify(result[i]["gama"]);
+                    mensajes = JSON.stringify(result[i]["messages"]);
+                    reservaciones = JSON.stringify(result[i]["reservations"]);
+                    
                     salidaFila = "<tr><td>" + nombre + "</td><td>" +
                         marca + "</td><td>" + año + "</td><td>" + descripcion + "</td><td>" +
                         gama + "</td><td>" + mensajes + "</td><td>" + reservaciones + "</td><tr>";
@@ -116,7 +143,7 @@ $(document).ready(function () {
                 var mensajes;
                 var reservaciones;
                 var salidaFila = "";
-
+                
                 $("#client-table tbody").empty();
 
                 salidaFila = "<tr><th>ID Cliente</th><th>Nombre</th><th>Email</th><th>Edad</th><th>Mensajes</th><th>Reservaciones</th></tr>";
@@ -128,7 +155,32 @@ $(document).ready(function () {
                     email = result[i]["email"];
                     edad = result[i]["age"];
                     mensajes = result[i]["messages"];
-                    reservaciones = result[i]["reservations"]
+                    reservaciones = result[i]["reservations"];
+
+                    for (var j = 0; j<reservaciones.length; j++){
+                        if (JSON.stringify(reservaciones) != "[]"){
+                            delete reservaciones[j]["idReservation"];
+                            delete reservaciones[j]["car"]["idCar"];
+                            delete reservaciones[j]["car"]["gama"]["idGama"];
+                            
+                            for (var k = 0; k<reservaciones[j]["car"]["messages"].length;  k++){
+                                delete reservaciones[j]["car"]["messages"][k]["idMessage"];
+                            }
+                        }else{
+                            console.log(JSON.stringify(reservaciones));
+                        }
+                    }
+                    for (var j = 0; j<mensajes.length; j++){
+                        if (JSON.stringify(mensajes) != "[]"){
+                            delete mensajes[j]["idMessage"];
+                            delete mensajes[j]["car"]["idCar"];
+                            delete mensajes[j]["car"]["gama"]["idGama"];
+                        }else{
+                            console.log(JSON.stringify(mensajes));
+                        }
+                    }
+                    mensajes = JSON.stringify(result[i]["messages"]);
+                    reservaciones = JSON.stringify(result[i]["reservations"]);
 
                     salidaFila = "<tr><td>" + id + "</td><td>" +
                         nombre + "</td><td>" + email + "</td><td>" + edad + "</td><td>" + mensajes + "</td><td>" + 
@@ -215,6 +267,21 @@ $(document).ready(function () {
                     car = result[i]["car"];
                     client = result[i]["client"];
 
+                    if (JSON.stringify(car) != "[]"){
+                        delete car["idCar"];
+                        delete car["gama"]["idGama"];
+                    }else{
+                        console.log(JSON.stringify(car));
+                    }
+                    if (JSON.stringify(client) != "[]"){
+                        delete client["idClient"];
+                        delete client["password"];
+                    }else{
+                        console.log(JSON.stringify(client));
+                    }
+
+                    car = JSON.stringify(result[i]["car"]);
+                    client = JSON.stringify(result[i]["client"]);
 
                     salidaFila = "<tr><td>" + mensaje + "</td><td>" +
                         car + "</td><td>" + client + "</td></tr>";
