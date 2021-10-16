@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // GET para actualizar la tabla de Mensaje
     $("#upd-message").click(function () {
-        var urlServicio = "http://localhost:8080/Message/all";
+        var urlServicio = "http://localhost:8080/api/Message/all";
         $("#Message-Table tbody").empty();
         $.ajax({
             url: urlServicio,
@@ -38,8 +38,9 @@ $(document).ready(function () {
                         console.log(JSON.stringify(car));
                     }
                     if (JSON.stringify(client) != "[]"){
-                        delete client["idClient"];
+                        //delete client["idClient"];
                         delete client["password"];
+                        delete client["age"];
                     }else{
                         console.log(JSON.stringify(client));
                     }
@@ -76,7 +77,7 @@ $(document).ready(function () {
 
     // POST para agregar un mensaje
     $("#Agregar-Mensaje").click(function () {
-        var urlServicio = "http://localhost:8080/Message/save";
+        var urlServicio = "http://localhost:8080/api/Message/save";
         var message = $("#Message").val();
         var client = parseInt($("#Client-Message-ID").val());
         var car = parseInt($("#Car-Message-ID").val()); 

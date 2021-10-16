@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // GET para actualizar la tabla de Gamas
     $("#upd-gama").click(function (){
-        var urlServicio = "http://localhost:8080/Gama/all";
+        var urlServicio = "http://localhost:8080/api/Gama/all";
         console.log(urlServicio)
         $("#gama-table tbody").empty();
         $.ajax({
@@ -38,9 +38,10 @@ $(document).ready(function () {
                             delete car[j]["idCar"]
                             delete car[j]["gama"]["idGama"];
                             for (var k = 0; k < car[j]["reservations"].length;  k++){
-                                delete car[j]["reservations"][k]["idReservation"]
-                                delete car[j]["reservations"][k]["client"]["idClient"];
+                                //delete car[j]["reservations"][k]["idReservation"]
+                                //delete car[j]["reservations"][k]["client"]["idClient"];
                                 delete car[j]["reservations"][k]["client"]["password"];
+                                delete car[j]["reservations"][k]["client"]["age"];
                             }
                             for (var k = 0; k<car[j]["messages"].length;  k++){
                                 delete car[j]["messages"][k]["idMessage"];
@@ -62,7 +63,7 @@ $(document).ready(function () {
 
     // POST para agregar una gama
     $("#Add-Gama").click(function (){
-        var urlServicio = "http://localhost:8080/Gama/save";
+        var urlServicio = "http://localhost:8080/api/Gama/save";
         var name = $("#Name-Gama").val();
         var descripcion = $("#Description-Gama").val();
         $.ajax({

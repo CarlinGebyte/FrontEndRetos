@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // GET para actualizar la tabla de carros
     $("#upd-table-car").click(function () {
-        var urlServicio = "http://localhost:8080/Car/all";
+        var urlServicio = "http://localhost:8080/api/Car/all";
         $("#table-car tbody").empty();
         console.log(urlServicio);
         $.ajax({
@@ -42,9 +42,10 @@ $(document).ready(function () {
                     
                     for (var k = 0;  k<reservaciones.length;  k++){
                         if (JSON.stringify(reservaciones) != "[]"){
-                            delete reservaciones[k]["idReservation"];
-                            delete reservaciones[k]["client"]["idClient"];
+                            //delete reservaciones[k]["idReservation"];
+                            //delete reservaciones[k]["client"]["idClient"];
                             delete reservaciones[k]["client"]["password"];
+                            delete reservaciones[k]["client"]["age"];
                         }else{
                             console.log(JSON.stringify(reservaciones));
                         }
@@ -97,7 +98,7 @@ $(document).ready(function () {
 
     // POST para agregar un carro
     $("#Agregar-Carro").click(function () {
-        var urlServicio = "http://localhost:8080/Car/save";
+        var urlServicio = "http://localhost:8080/api/Car/save";
         var name = $("#Name-Car").val();
         var marca = $("#Brand-Car").val();
         var año = parseInt($("#Year-Car").val());

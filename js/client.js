@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // GET para actualizar la tabla de clientes
     $("#upd-client").click(function () {
-        var urlServicio = "http://localhost:8080/Client/all";
+        var urlServicio = "http://localhost:8080/api/Client/all";
         $("#client-table tbody").empty();
         $.ajax({            
             url: urlServicio,
@@ -39,7 +39,7 @@ $(document).ready(function () {
 
                     for (var j = 0; j<reservaciones.length; j++){
                         if (JSON.stringify(reservaciones) != "[]"){
-                            delete reservaciones[j]["idReservation"];
+                            //delete reservaciones[j]["idReservation"];
                             delete reservaciones[j]["car"]["idCar"];
                             delete reservaciones[j]["car"]["gama"]["idGama"];
                             
@@ -92,7 +92,7 @@ $(document).ready(function () {
 
     // POST para agregar un cliente
     $("#Agregar-Cliente").click(function () {
-        var urlServicio = "http://localhost:8080/Client/save";        
+        var urlServicio = "http://localhost:8080/api/Client/save";        
         var name = $("#Client-Name").val();
         var email = $("#Client-Email").val();
         var password = $("#Client-Password").val();

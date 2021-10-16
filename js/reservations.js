@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // GET para actualizar la tabla de Reservaciones
     $("#upd-reservation").click(function (){
-        var urlServicio = "http://localhost:8080/Reservation/all";
+        var urlServicio = "http://localhost:8080/api/Reservation/all";
         console.log(urlServicio)
         $("#reservation-table tbody").empty();
         $.ajax({
@@ -17,6 +17,7 @@ $(document).ready(function () {
                 console.log("Entre a invocar el servicio REST");
                 console.log(result);
                 var i = 0;
+                var idReservation = 0;
                 var startDate = "";
                 var devolutionDate = "";
                 var status = "";
@@ -27,10 +28,11 @@ $(document).ready(function () {
 
                 $("#reservation-table tbody").empty();
 
-                salidaFila = "<tr><th>Fecha Inicio</th><th>Fecha Entrega</th><th>Estado</th><th>Car</th><th>Client</th><th>Calificación</th></tr>";
+                salidaFila = "<tr><th>ID Reservation</th><th>Fecha Inicio</th><th>Fecha Entrega</th><th>Estado</th><th>Car</th><th>Client</th><th>Calificación</th></tr>";
                 $("#reservation-table tbody").append(salidaFila);
 
-                for (i = 0; i < result.length; i++) {                
+                for (i = 0; i < result.length; i++) {    
+                    idReservation = result[i]["idReservation"];         
                     startDate = result[i]["startDate"];
                     devolutionDate = result[i]["devolutionDate"];
                     status = result[i]["status"];
@@ -45,8 +47,9 @@ $(document).ready(function () {
                         console.log(JSON.stringify(car));
                     }
                     if (JSON.stringify(client) != "[]"){
-                        delete client["idClient"];
+                        //delete client["idClient"];
                         delete client["password"];
+                        delete client["age"];
                     }else{
                         console.log(JSON.stringify(car));
                     }
@@ -58,9 +61,9 @@ $(document).ready(function () {
                     car = JSON.stringify(result[i]["car"]);
                     client = JSON.stringify(result[i]["client"]);
 
-                    salidaFila = "<tr><td>" + startDate + "</td><td>" + devolutionDate + "</td><td>" +
-                        status + "</td><td>" + car + "</td><td>" + client + "</td><td>" + 
-                        score + "</td><tr>";
+                    salidaFila = "<tr><td>" + idReservation + "</td><td>" + startDate + "</td><td>" + 
+                        devolutionDate + "</td><td>" + status + "</td><td>" + car + 
+                        "</td><td>" + client + "</td><td>" + score + "</td><tr>";
 
                     $("#reservation-table tbody").append(salidaFila);
 
@@ -71,7 +74,7 @@ $(document).ready(function () {
 
     // POST para agregar una reservación
     $("#Add-Reservation").click(function (){
-        var urlServicio = "http://localhost:8080/Reservation/save";
+        var urlServicio = "http://localhost:8080/api/Reservation/save";
         var startDate = $("#Date-Start-Reservation").val();
         var devolutionDate = $("#Date-Devolution-Reservation").val();
         var client = parseInt($("#Client-Reservation").val());
