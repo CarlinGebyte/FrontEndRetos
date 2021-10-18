@@ -82,14 +82,16 @@ $(document).ready(function () {
         var client = parseInt($("#Client-Message-ID").val());
         var car = parseInt($("#Car-Message-ID").val()); 
         console.log(car)       
-        $.ajax({
-            url: urlServicio,
-            type: "POST",
-            data: JSON.stringify({ "messageText":message, "client":{"idClient":client}, "car":{"idCar":car}}),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            cache: false,
-        } );   
+        if (message != "" && client != NaN && car != NaN) {
+            $.ajax({
+                url: urlServicio,
+                type: "POST",
+                data: JSON.stringify({ "messageText":message, "client":{"idClient":client}, "car":{"idCar":car}}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+            });   
+        }
     })
 
     // PUT para actualizar un mensaje

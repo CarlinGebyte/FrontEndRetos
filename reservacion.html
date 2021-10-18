@@ -57,23 +57,23 @@
                 <h5>Agregar Reservación</h5>
                 <div class='mb-3'>
                     <label for='Start-Date'>Fecha Inicio</label>
-                    <input type="date" class="form-control" placeholder="Escribe la Fecha" id='Date-Start-Reservation'/>
+                    <input type="date" class="form-control" placeholder="Escribe la Fecha" id='Date-Start-Reservation' required/>
                 </div>
                 <div class='mb-3'>
                     <label for='End-Date'>Fecha Entrega</label>
-                    <input type="date" class="form-control" placeholder="Escribe la Fecha" id='Date-Devolution-Reservation'/>
+                    <input type="date" class="form-control" placeholder="Escribe la Fecha" id='Date-Devolution-Reservation' required/>
                 </div>
                 <div class='mb-3'>
                     <label for='Client'>Cliente</label>
-                    <input type="text" class="form-control" placeholder="Escribe el Cliente ID" id='Client-Reservation'/>
+                    <input type="number" class="form-control" placeholder="Escribe el Cliente ID" id='Client-Reservation' required/>
                 </div>
                 <div class='mb-3'>
                     <label for='Car'>Carro</label>
-                    <input type="text" class="form-control" placeholder="Escribe Carro IDn" id='Car-Reservation'/>
+                    <input type="number" class="form-control" placeholder="Escribe Carro ID" id='Car-Reservation' required/>
                 </div>
+                <button class='margin-button' id="Add-Reservation">Agregar</button>
+                <button class='margin-button' id="Update-Resevation">Actualizar</button>
             </form>
-            <button class='margin-button' id="Add-Reservation">Agregar</button>
-            <button class='margin-button' id="Update-Resevation">Actualizar</button>
         </div>
 
     <footer class="copyright">

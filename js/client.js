@@ -97,14 +97,16 @@ $(document).ready(function () {
         var email = $("#Client-Email").val();
         var password = $("#Client-Password").val();
         var age = parseInt($("#Client-Age").val());
-        $.ajax({
-            url: urlServicio,
-            type: "POST",
-            data: JSON.stringify({ "name":name, "email":email, "password":password, "age":age }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            cache: false,
-        });   
+        if (name != "" && email != "" && password != "" && age != NaN){
+            $.ajax({
+                url: urlServicio,
+                type: "POST",
+                data: JSON.stringify({ "name":name, "email":email, "password":password, "age":age }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+            });   
+        }
     })
 
     // PUT para actualizar un cliente

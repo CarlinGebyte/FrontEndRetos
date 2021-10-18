@@ -20,7 +20,6 @@ $(document).ready(function () {
                 var nombre = "";
                 var descripcion = "";
                 var car;
-                var car2;
                 var salidaFila = "";
 
                 $("#gama-table tbody").empty();
@@ -66,13 +65,16 @@ $(document).ready(function () {
         var urlServicio = "http://localhost:8080/api/Gama/save";
         var name = $("#Name-Gama").val();
         var descripcion = $("#Description-Gama").val();
-        $.ajax({
-            url: urlServicio,
-            type: "POST",
-            data: JSON.stringify({ "name":name, "description":descripcion}),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            cache: false,
-        } );   
+
+        if (name != "" && descripcion != ""){
+            $.ajax({
+                url: urlServicio,
+                type: "POST",
+                data: JSON.stringify({ "name":name, "description":descripcion}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+            });   
+        }
     })
 })

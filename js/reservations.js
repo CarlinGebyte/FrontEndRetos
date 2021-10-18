@@ -77,15 +77,20 @@ $(document).ready(function () {
         var urlServicio = "http://localhost:8080/api/Reservation/save";
         var startDate = $("#Date-Start-Reservation").val();
         var devolutionDate = $("#Date-Devolution-Reservation").val();
-        var client = parseInt($("#Client-Reservation").val());
-        var car = parseInt($("#Car-Reservation").val());
-        $.ajax({
-            url: urlServicio,
-            type: "POST",
-            data: JSON.stringify({ "startDate":startDate, "devolutionDate":devolutionDate, "client":{"idClient":client}, "car":{"idCar":car}}),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            cache: false,
-        } );   
+        var client = $("#Client-Reservation").val();
+        var car = $("#Car-Reservation").val();
+        console.log (startDate);
+        console.log (devolutionDate);
+        console.log (client);
+        if(startDate != "" && devolutionDate != "" && client != "" && car != ""){
+            $.ajax({
+                url: urlServicio,
+                type: "POST",
+                data: JSON.stringify({ "startDate":startDate, "devolutionDate":devolutionDate, "client":{"idClient":client}, "car":{"idCar":car}}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+            } );   
+        }
     })
 })

@@ -104,14 +104,16 @@ $(document).ready(function () {
         var año = parseInt($("#Year-Car").val());
         var descripcion = $("#Description-Car").val();
         var gama = $("#Gama-Car").val();
-        $.ajax({
-            url: urlServicio,
-            type: "POST",
-            data: JSON.stringify({ "name":name, "brand":marca, "year":año, "description":descripcion, "gama":{"idGama":gama} }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            cache: false,
-        });   
+        if (name != "" && marca != "" && año != NaN && description != "" && gama != NaN) {
+            $.ajax({
+                url: urlServicio,
+                type: "POST",
+                data: JSON.stringify({ "name":name, "brand":marca, "year":año, "description":descripcion, "gama":{"idGama":gama} }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+            });  
+        } 
     })
 
     // PUT para actualizar un carro
