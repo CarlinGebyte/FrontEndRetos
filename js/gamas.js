@@ -24,7 +24,7 @@ $(document).ready(function () {
 
                 $("#gama-table tbody").empty();
 
-                salidaFila = "<tr><th>Nombre</th><th>Descripción</th><th>Carros</th></tr>";
+                salidaFila = "<tr><th>Nombre</th><th>Descripción</th><th>Carros</th><th class='accionTd'>Acción</th></tr>";
                 $("#gama-table tbody").append(salidaFila);
 
                 for (i = 0; i < result.length; i++) {
@@ -35,10 +35,10 @@ $(document).ready(function () {
                     for (var j = 0; j<car.length;  j++){
                         if (JSON.stringify(car) != "[]"){
                             delete car[j]["idCar"]
-                            delete car[j]["gama"]["idGama"];
+                            //delete car[j]["gama"]["idGama"];
                             for (var k = 0; k < car[j]["reservations"].length;  k++){
                                 //delete car[j]["reservations"][k]["idReservation"]
-                                //delete car[j]["reservations"][k]["client"]["idClient"];
+                                //delete car[j]["reservations"][k]["client"]["idGama"];
                                 delete car[j]["reservations"][k]["client"]["password"];
                                 delete car[j]["reservations"][k]["client"]["age"];
                             }
@@ -51,7 +51,8 @@ $(document).ready(function () {
                     car = JSON.stringify(car);
 
                     salidaFila = "<tr><td>" + nombre + "</td><td>" + descripcion + "</td><td>" +
-                        car + "</td></tr>";
+                        car + "</td><td>" + "<button class='button del-button' onclick='deleteGama("+ result[i]["idGama"] +")'>Borrar</button>" + 
+                        "<a href='#container-all' onclick='getId("+ result[i]["idGama"] +")'><button class='button' id='btn-abrir-popup' onclick='updateGama("+ result[i]["idGama"] +")'> Editar </button></a>" + "</td><tr>";
 
                     $("#gama-table tbody").append(salidaFila);
 
@@ -64,17 +65,86 @@ $(document).ready(function () {
     $("#Add-Gama").click(function (){
         var urlServicio = "http://localhost:8080/api/Gama/save";
         var name = $("#Name-Gama").val();
-        var descripcion = $("#Description-Gama").val();
-
-        if (name != "" && descripcion != ""){
+        var description = $("#Description-Gama").val();
+        console.log(name);
+        if (name != "" && description != ""){
             $.ajax({
                 url: urlServicio,
                 type: "POST",
-                data: JSON.stringify({ "name":name, "description":descripcion}),
+                data: JSON.stringify({ "name":name, "description":description}),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 cache: false,
+                success: function(){
+                    alert("Se ha agregado");
+                    $("#Name-Gama").val("");
+                    $("#Description-Gama").val("");
+                }
             });   
+            return false;
         }
     })
 })
+
+// DELETE para eliminar un carro
+function deleteGama(id){
+    alert("Se ha eliminado")
+    var urlServicio = "http://150.230.93.159:8080/api/Gama/";
+    urlServicio += id;
+    console.log(urlServicio);
+    $.ajax({
+        url: urlServicio,
+        type: "DELETE",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+    });   
+}
+// PUT para actualizar un carro
+function updateGama(idGama){
+    $("#btn-upd-gama").click(function () {
+        var urlServicio = "http://localhost:8080/api/Gama/update";
+        var name = $("#Name-upd-gama").val();
+        var description = $("#Description-upd-gama").val();
+        if (name != "" && description != ""){
+            $.ajax({
+                url: urlServicio,
+                type: "PUT",
+                data: JSON.stringify({ "idGama":idGama, "name":name, "description":description}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                
+                success: (function(){
+                    idGama = 0;
+                    $("#Name-upd-gama").val("");
+                    $("#Description-upd-gama").val("");
+                })
+            })
+        }else{
+            alert("Todos los campos son obligatorios");
+        }
+        
+    })
+    
+}
+
+
+//GET por id
+function getId(id){
+    var urlServicio = "http://localhost:8080/api/Gama/";
+    var name;
+    var description;
+    console.log(urlServicio)
+    $.ajax({
+        url: urlServicio+id,
+        type: "GET",
+
+        success: (function(result){
+            name = result["name"];
+            description = result["description"];
+            
+            $("#Name-upd-gama").val(name);
+            $("#Description-upd-gama").val(description);
+        })
+    })
+}

@@ -26,7 +26,7 @@ $(document).ready(function () {
                 
                 $("#client-table tbody").empty();
 
-                salidaFila = "<tr><th>ID Cliente</th><th>Nombre</th><th>Email</th><th>Edad</th><th>Mensajes</th><th>Reservaciones</th></tr>";
+                salidaFila = "<tr><th>ID Cliente</th><th>Nombre</th><th>Email</th><th>Edad</th><th>Mensajes</th><th>Reservaciones</th><th class='accionTd'>Acción</th></tr>";
                 $("#client-table tbody").append(salidaFila);
 
                 for (i = 0; i < result.length; i++) {
@@ -64,7 +64,8 @@ $(document).ready(function () {
 
                     salidaFila = "<tr><td>" + id + "</td><td>" +
                         nombre + "</td><td>" + email + "</td><td>" + edad + "</td><td>" + mensajes + "</td><td>" + 
-                        reservaciones +"</td></tr>";
+                        reservaciones + "</td><td>" + "<button class='button del-button' onclick='deleteClient("+ result[i]["idClient"] +")'>Borrar</button>" + 
+                        "<a href='#container-all' onclick='getId("+ result[i]["idClient"] +")'><button class='button' id='btn-abrir-popup' onclick='updateClient("+ result[i]["idClient"] +")'> Editar </button></a>" + "</td><tr>";
 
                     $("#client-table tbody").append(salidaFila);
 
@@ -74,20 +75,6 @@ $(document).ready(function () {
                         //Fin del selector success del AJAX
             }
         });
-    })
-
-    // DELETE para eliminar un cliente
-    $("#Borrar-Cliente").click(function () {
-        var urlServicio = "https://g272857530b233b-db202109272016.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client";
-        var id = $("#ID-Cliente").val();
-        $.ajax({
-            url: urlServicio,
-            type: "DELETE",
-            data: JSON.stringify({id:id}),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            cache: false,
-        });   
     })
 
     // POST para agregar un cliente
@@ -105,24 +92,80 @@ $(document).ready(function () {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 cache: false,
-            });   
+                success: function () {
+                    $("#Client-Name").val("");
+                    $("#Client-Email").val("");
+                    $("#Client-Password").val("");
+                    $("#Client-Age").val("");
+                }
+            });
+            return false;
         }
     })
-
-    // PUT para actualizar un cliente
-    $("#Actualizar-Cliente").click(function () {
-        var urlServicio = "https://g272857530b233b-db202109272016.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/client/client";
-        var idCliente = parseInt($("#Agregar-ID-Cliente").val());
-        var nombreCliente = $("#Nombre-Cliente").val();
-        var emailCliente = $("#Email-Cliente").val();
-        var edadCliente = parseInt($("#Edad-Cliente").val());
-        $.ajax({
-            url: urlServicio,
-            type: "PUT",
-            data: JSON.stringify({ "id":idCliente, "name":nombreCliente, "email":emailCliente, "age":edadCliente }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            cache: false,
-        });   
-    })
 })
+
+// DELETE para eliminar un carro
+function deleteClient(id){
+    alert("Se ha eliminado")
+    var urlServicio = "http://localhost:8080/api/Client/";
+    urlServicio += id;
+    console.log(urlServicio);
+    $.ajax({
+        url: urlServicio,
+        type: "DELETE",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+    });   
+}
+// PUT para actualizar un carro
+function updateClient(idClient){
+    $("#btn-upd-client").click(function () {
+        var urlServicio = "http://localhost:8080/api/Client/update";
+        var name = $("#Name-upd-client").val();
+        var age = $("#Age-upd-client").val();
+        var password = $("#Password-upd-client").val();
+        if (name != "" && age != "" && password != ""){
+            $.ajax({
+                url: urlServicio,
+                type: "PUT",
+                data: JSON.stringify({ "idClient":idClient, "name":name, "age":age, "password":password}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                
+                success: (function(){
+                    idClient = 0;
+                    $("#Name-upd-client").val("");
+                    $("#Age-upd-client").val("");
+                    $("#Password-upd-client").val("");
+                })
+            })
+        }else{
+            alert("Todos los campos son obligatorios");
+        }
+        
+    })
+    
+}
+
+//GET por id
+function getId(id){
+    var urlServicio = "http://localhost:8080/api/Client/";
+    var name;
+    var age;
+    var password;
+    $.ajax({
+        url: urlServicio+id,
+        type: "GET",
+
+        success: (function(result){
+            name = result["name"];
+            age = result["age"];
+            password = result["password"];
+
+            $("#Name-upd-client").val(name);
+            $("#Age-upd-client").val(age);
+            $("#Password-upd-client").val(password);
+        })
+    })
+}

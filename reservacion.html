@@ -10,6 +10,7 @@
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/popup.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" language="javascript" src="js/reservations.js"></script>
@@ -24,10 +25,10 @@
                 <h1 class="text-center title">ALQUILER DE CARROS</h1>
             </a>
             <nav class="nav">
+                <a href="gama.html">Gamas</a>
                 <a href="carro.html">Carros</a>
                 <a href="cliente.html">Clientes</a>
                 <a href="mensage.html">Mensajes</a>
-                <a href="gama.html">Gamas</a>
                 <a href="reservacion.html">Reservaciones</a>
             </nav>
         </div>
@@ -45,14 +46,11 @@
                         <th>Carro</th>
                         <th>Cliente</th>
                         <th>Calificación</th>
+                        <th class='accionTd'>Acción</th>
                     </tr>
                 </table>
             </div>
-            <button class='margin-button' id="upd-reservation">Actualizar Tabla</button>
-            <input type="number" class='form-control' placeholder="Escribe ID" id='ID-Reservation' />
-            <br>
-            <button class='margin-button' id="search-id-reservation">Buscar ID</button>
-            <button class='margin-button' id="Delete-Reservation">Borrar Carro</button>
+            <button class='button' id="upd-reservation">Actualizar Tabla</button>
             <form>
                 <h5>Agregar Reservación</h5>
                 <div class='mb-3'>
@@ -65,15 +63,41 @@
                 </div>
                 <div class='mb-3'>
                     <label for='Client'>Cliente</label>
-                    <input type="number" class="form-control" placeholder="Escribe el Cliente ID" id='Client-Reservation' required/>
+                    <select class="form-control" id='Client-Reservation' type="text" required>
+                        <option hidden value="">Seleccionar Cliente</option>
+                    </select>
                 </div>
                 <div class='mb-3'>
                     <label for='Car'>Carro</label>
-                    <input type="number" class="form-control" placeholder="Escribe Carro ID" id='Car-Reservation' required/>
+                    <select class="form-control" id='Car-Reservation' type="text" required>
+                        <option hidden value="">Seleccionar Carro</option>
+                    </select>
                 </div>
-                <button class='margin-button' id="Add-Reservation">Agregar</button>
-                <button class='margin-button' id="Update-Resevation">Actualizar</button>
+                <button class='button' id="Add-Reservation">Agregar</button>
             </form>
+            
+            <div class="container-all" id="container-all">
+            
+                <div class="popup" id="popup">
+                    <div class='contenedor-popup'>
+                        <h3>ACTUALIZAR</h3>
+                        <form action="">
+                            <div class="contenedor-inputs">
+                                <input class="form-control" id='Start-upd-reservation' type="date" placeholder="fecha inicio" required>
+                                <input class="form-control" id='Devolution-upd-reservation' type="date" placeholder="Fecha devolución" required>
+                                <select class="form-control" id='Status-upd-reservation' type="text" required>
+                                    <option hidden value="">Seleccionar estado</option>
+                                    <option>Programed</option>
+                                    <option>Created</option>
+                                    <option>Cancelled</option>
+                                </select>
+                                <a href="#" class="btn-submit button" id="btn-upd-reservation">Actualizar</a>
+                            </div>
+                        </form>
+                    </div>
+                    <a href="#" id="btn-exit-popup" class="btn-exit-popup"><span>x</span></a>
+                </div>
+            </div>
         </div>
 
     <footer class="copyright">

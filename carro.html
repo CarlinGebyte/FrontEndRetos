@@ -7,26 +7,32 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">    
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/popup.css">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <script type="text/javascript" language="javascript" src="js/car.js"></script>
+    
 
     <title>Carros</title>
 </head>
 <body>
     <header class="header">
         <div>
-            <a href="index.html">
+             <a href="index.html">
                 <h1 class="text-center title">ALQUILER DE CARROS</h1>
             </a>
             <nav class="nav">
+                <a href="gama.html">Gamas</a>
                 <a href="carro.html">Carros</a>
                 <a href="cliente.html">Clientes</a>
                 <a href="mensage.html">Mensajes</a>
-                <a href="gama.html">Gamas</a>
                 <a href="reservacion.html">Reservaciones</a>
             </nav>
         </div>
@@ -44,14 +50,11 @@
                     <th>Gama</th>
                     <th>Mensajes</th>
                     <th>Reservaciones</th>
+                    <th class='accionTd'>Acción</th>
                 </tr>
             </table>
         </div>
-        <button class='margin-button' id="upd-table-car">Actualizar Tabla</button>
-        <input type="number" class='form-control' placeholder="Escribe ID" id='ID-Carro' />
-        <br>
-        <button class='margin-button' id="buscar-id-carro">Buscar ID</button>
-        <button class='margin-button' id="Borrar-Carro">Borrar Carro</button>
+        <a type ="submit" class='button' id="upd-table-car">Actualizar Tabla</a>
         <form>
             <h5>Agregar Carro</h5>            
             <div class='mb-3'>
@@ -72,14 +75,39 @@
             </div>
             <div class='mb-3'>
                 <label for='Gama'>Gama</label>
-                <input type="number" class="form-control" placeholder="Escribe la gama" id='Gama-Car' required/>
+                <select class="form-control" id='Gama-Car' type="text" required>
+                    <option hidden value="">Seleccionar Gama</option>
+                </select>
             </div>
-            <button class='margin-button' id="Agregar-Carro">Agregar</button>
-            <button class='margin-button' id="Actualizar-Carro">Actualizar</button>
+            <input type="submit" class='button' id="Agregar-Carro" value="Agregar"/>
         </form>
-        
-    </div>
 
+        <div class="container-all" id="container-all">
+            
+            <div class="popup" id="popup">
+                <div class='contenedor-popup'>
+                    <h3>ACTUALIZAR</h3>
+                    <form action="">
+                        <div class="contenedor-inputs">
+                            <label for="Name-upd-car">Nombre</label>
+                            <input class="form-control" id='Name-upd-car' type="text" placeholder="Nombre" required>
+                            
+                            <label for="Brand-upd-car">Marca</label>
+                            <input class="form-control" id='Brand-upd-car' type="text" placeholder="Marca" required>
+
+                            <label for="Year-upd-car">Año</label>
+                            <input class="form-control" id='Year-upd-car' type="number" placeholder="Año" required>
+
+                            <label for="Description-upd-car">Descripción</label>
+                            <input class="form-control" id='Description-upd-car' type="text" placeholder="Descripción" required>
+                            <a href="#" class="btn-submit button" id="btn-upd-car">Actualizar</a>
+                        </div>
+                    </form>
+                </div>
+                <a href="#" id="btn-exit-popup" class="btn-exit-popup"><span>x</span></a>
+            </div>
+        </div>        
+    </div>
     <footer class="copyright">
         <div class="container contenedor-footer">
             <nav class="nav-footer">

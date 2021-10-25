@@ -1,5 +1,26 @@
 $(document).ready(function () {
-    jQuery.support.cors = true;    
+    jQuery.support.cors = true;
+    
+    // Para actualizar el menu de selección de Gama
+    $.ajax({
+        url: "http://localhost:8080/api/Gama/all",
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+
+        success: function (result) {
+            var gamaSelect = "<option hidden value=''>Seleccionar Gama</option>";  
+            $("#Gama-Car").empty();
+            $("#Gama-Car").append(gamaSelect);          
+            for (var i = 0; i < result.length; i++) {
+                gamaSelect += "<option value='"+ result[i]["idGama"] +"'>"+ result[i]["name"] +"</option>";
+                $("#Gama-Car").empty();
+                $("#Gama-Car").append(gamaSelect);
+
+            }//Fin del for
+        }
+    })
 
     // GET para actualizar la tabla de carros
     $("#upd-table-car").click(function () {
@@ -12,7 +33,7 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             cache: false,
-            
+        
             success: function (result) {
                 console.log("Entre a invocar el servicio REST");
                 console.log(result);
@@ -28,7 +49,7 @@ $(document).ready(function () {
 
                 $("#table-car tbody").empty();
 
-                salidaFila = "<tr><th>Nombre</th><th>Marca</th><th>Año</th><th>Descripción</th><th>Gama</th><th>Mensajes</th><th>Reservaciones</th></tr>";
+                salidaFila = "<tr><th>Nombre</th><th>Marca</th><th>Año</th><th>Descripción</th><th>Gama</th><th>Mensajes</th><th>Reservaciones</th><th class='accionTd'>Acción</th></tr>";
                 $("#table-car tbody").append(salidaFila);
 
                 for (i = 0; i < result.length; i++) {
@@ -67,34 +88,19 @@ $(document).ready(function () {
                     gama = JSON.stringify(result[i]["gama"]);
                     mensajes = JSON.stringify(result[i]["messages"]);
                     reservaciones = JSON.stringify(result[i]["reservations"]);
-                    
+                    console.log(result[i]["idCar"]);
                     salidaFila = "<tr><td>" + nombre + "</td><td>" +
                         marca + "</td><td>" + año + "</td><td>" + descripcion + "</td><td>" +
-                        gama + "</td><td>" + mensajes + "</td><td>" + reservaciones + "</td><tr>";
+                        gama + "</td><td>" + mensajes + "</td><td>" + reservaciones + "</td><td>" + "<button class='button del-button' onclick='deleteCar("+ result[i]["idCar"] +")'>Borrar</button>" + "<a href='#container-all' onclick='getId("+ result[i]["idCar"] +")'><button class='button' id='btn-abrir-popup' onclick='updateCar("+ result[i]["idCar"] +")'> Editar </button></a>" + "</td><tr>";
 
                     $("#table-car tbody").append(salidaFila);
 
                 }//Fin del for
-
-
                             //Fin del selector success del AJAX
             }
         });
     })
 
-    // DELETE para eliminar un carro
-    $("#Borrar-Carro").click(function () {
-        var urlServicio = "https://g272857530b233b-db202109272016.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/car/car";
-        var id = $("#ID-Carro").val();
-        $.ajax({
-            url: urlServicio,
-            type: "DELETE",
-            data: JSON.stringify({id:id}),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            cache: false,
-        });   
-    })
 
     // POST para agregar un carro
     $("#Agregar-Carro").click(function () {
@@ -103,8 +109,8 @@ $(document).ready(function () {
         var marca = $("#Brand-Car").val();
         var año = parseInt($("#Year-Car").val());
         var descripcion = $("#Description-Car").val();
-        var gama = $("#Gama-Car").val();
-        if (name != "" && marca != "" && año != NaN && description != "" && gama != NaN) {
+        var gama = parseInt($("#Gama-Car").val());
+        if (name != "" && marca != "" && año != "" && descripcion != "" && gama != "") {
             $.ajax({
                 url: urlServicio,
                 type: "POST",
@@ -112,24 +118,90 @@ $(document).ready(function () {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 cache: false,
+                    success: function () {
+                        alert("Se ha agregado");
+                        $("#Name-Car").val("");
+                        $("#Brand-Car").val("");
+                        $("#Year-Car").val("");
+                        $("#Description-Car").val("");
+                        $("#Gama-Car").val("");
+                    }
             });  
+            return false;
         } 
     })
-
-    // PUT para actualizar un carro
-    $("#Actualizar-Carro").click(function () {
-        var urlServicio = "https://g272857530b233b-db202109272016.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/car/car";
-        var idCarro = parseInt($("#ID-Agregar-Carro").val());
-        var marcaCarro = $("#Marca-Carro").val();
-        var modeloCarro = parseInt($("#Modelo-Carro").val());
-        var categoryIdCarro = parseInt($("#Category-ID-Carro").val());
-        $.ajax({
-            url: urlServicio,
-            type: "PUT",
-            data: JSON.stringify({ "id":idCarro, "brand":marcaCarro, "model":modeloCarro, "category_id":categoryIdCarro }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            cache: false,
-        });   
-    })
 })
+
+// DELETE para eliminar un carro
+function deleteCar(id){
+    alert("Se ha eliminado")
+    var urlServicio = "http://localhost:8080/api/Car/";
+    console.log(id)
+    urlServicio += id;
+    console.log(urlServicio);
+    $.ajax({
+        url: urlServicio,
+        type: "DELETE",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+    });   
+}
+// PUT para actualizar un carro
+function updateCar(idCarro){
+    $("#btn-upd-car").click(function () {
+        var urlServicio = "http://localhost:8080/api/Car/update";
+        var name = $("#Name-upd-car").val();
+        var brand = $("#Brand-upd-car").val();
+        var year = parseInt($("#Year-upd-car").val());
+        var description = $("#Description-upd-car").val();
+        if (name != "" && brand != "" && year != "" && description != ""){
+            $.ajax({
+                url: urlServicio,
+                type: "PUT",
+                data: JSON.stringify({ "idCar":idCarro, "name":name, "brand":brand, "year":year, "description":description}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                
+                success: (function(){
+                    idCarro = 0;
+                    $("#Name-upd-car").val("");
+                    $("#Brand-upd-car").val("");
+                    $("#Year-upd-car").val("");
+                    $("#Description-upd-car").val("");
+                })
+            })
+        }else{
+            alert("Todos los campos son obligatorios");
+        }
+        
+    })
+    
+}
+
+
+//GET por id
+function getId(id){
+    var urlServicio = "http://localhost:8080/api/Car/";
+    var name;
+    var brand;
+    var year;
+    var description;
+    console.log(urlServicio)
+    $.ajax({
+        url: urlServicio+id,
+        type: "GET",
+
+        success: (function(result){
+            name = result["name"];
+            brand = result["brand"];
+            year = result["year"];
+            description = result["description"];
+
+            $("#Name-upd-car").val(name);
+            $("#Brand-upd-car").val(brand);
+            $("#Year-upd-car").val(year);
+            $("#Description-upd-car").val(description);
+        })
+    })
+}

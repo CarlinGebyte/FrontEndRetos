@@ -10,6 +10,7 @@
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/popup.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" language="javascript" src="js/client.js"></script>
@@ -24,10 +25,10 @@
                 <h1 class="text-center title">ALQUILER DE CARROS</h1>
             </a>
             <nav class="nav">
+                <a href="gama.html">Gamas</a>
                 <a href="carro.html">Carros</a>
                 <a href="cliente.html">Clientes</a>
                 <a href="mensage.html">Mensajes</a>
-                <a href="gama.html">Gamas</a>
                 <a href="reservacion.html">Reservaciones</a>
             </nav>
         </div>
@@ -44,13 +45,11 @@
                     <th>Edad</th>
                     <th>Mensajes</th>
                     <th>Reservaciones</th>
+                    <th class='accionTd'>Acción</th>
                 </tr>
             </table>
         </div>
-        <button class='margin-button' id="upd-client">Actualizar Tabla</button>
-        <input type="number" class='form-control' placeholder="Escribe ID" id='ID-Cliente' />
-        <br>
-        <button class='margin-button' id="buscar-id-cliente">Buscar ID</button>
+        <button class='button' id="upd-client">Actualizar Tabla</button>
         <form>
             <h5>Agregar Cliente</h5>            
             <div class='mb-3'>
@@ -63,15 +62,31 @@
             </div>
             <div class='mb-3'>
                 <label for='Password'>Contraseña</label>
-                <input type="text" class="form-control" placeholder="Escribe contraseña" id='Client-Password' required/>
+                <input type="password" class="form-control" placeholder="Escribe contraseña" id='Client-Password' required/>
             </div>
             <div class='mb-3'>
                 <label for='Age'>Edad</label>
                 <input type="number" class="form-control" placeholder="Escribe edad" id='Client-Age' required/>
             </div>
-            <button class='margin-button' id="Agregar-Cliente">Agregar</button>
-            <button class='margin-button' id="Actualizar-Cliente">Actualizar</button>
-        </form>        
+            <button class='button' id="Agregar-Cliente">Agregar</button>
+        </form>
+        
+        <div class="container-all" id="container-all">        
+            <div class="popup" id="popup">
+                <div class='contenedor-popup'>
+                    <h3>ACTUALIZAR</h3>
+                    <form action="">
+                        <div class="contenedor-inputs">
+                            <input class="form-control" id='Name-upd-client' type="text" placeholder="Nombre" required>
+                            <input class="form-control" id='Age-upd-client' type="number" placeholder="Edad" required>
+                            <input class="form-control" id='Password-upd-client' type="password" placeholder="Contraseña" required>                            
+                            <a href="#" class="btn-submit button" id="btn-upd-client">Actualizar</a>
+                        </div>
+                    </form>
+                </div>
+                <a href="#" id="btn-exit-popup" class="btn-exit-popup"><span>x</span></a>
+            </div>
+        </div>
     </div>
 
     <footer class="copyright">
