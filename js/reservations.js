@@ -4,7 +4,7 @@ $(document).ready(function () {
     // Para comparar reservas completadas vs Canceladas
     $("#Search-reservation").click(function () {
         $.ajax({
-            url: "http://localhost:8080/api/Reservation/report-status",
+            url: "http://150.230.93.159:8080/api/Reservation/report-status",
             type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -33,7 +33,7 @@ $(document).ready(function () {
 
     // Para actualizar el menu de selección del cliente
     $.ajax({
-        url: "http://localhost:8080/api/Client/all",
+        url: "http://150.230.93.159:8080/api/Client/all",
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
     // Para actualizar el menu de selección del Carro
     $.ajax({
-        url: "http://localhost:8080/api/Car/all",
+        url: "http://150.230.93.159:8080/api/Car/all",
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -83,7 +83,7 @@ $(document).ready(function () {
         
         if(startDate != "" && endDate != ""){
             $.ajax({
-                url: "http://localhost:8080/api/Reservation/report-dates/"+startDate+"/"+endDate,
+                url: "http://150.230.93.159:8080/api/Reservation/report-dates/"+startDate+"/"+endDate,
                 type: "GET",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -107,7 +107,7 @@ $(document).ready(function () {
 
     // GET para actualizar la tabla de Reservaciones
     $("#upd-reservation").click(function (){
-        var urlServicio = "http://localhost:8080/api/Reservation/all";
+        var urlServicio = "http://150.230.93.159:8080/api/Reservation/all";
         $("#reservation-table tbody").empty();
         $.ajax({
             url: urlServicio,
@@ -174,7 +174,7 @@ $(document).ready(function () {
 
     // POST para agregar una reservación
     $("#Add-Reservation").click(function (){
-        var urlServicio = "http://localhost:8080/api/Reservation/save";
+        var urlServicio = "http://150.230.93.159:8080/api/Reservation/save";
         var startDate = $("#Date-Start-Reservation").val();
         var devolutionDate = $("#Date-Devolution-Reservation").val();
         var client = $("#Client-Reservation").val();
@@ -203,7 +203,7 @@ $(document).ready(function () {
 // DELETE para eliminar un carro
 function deleteReservation(id){
     alert("Se ha eliminado")
-    var urlServicio = "http://localhost:8080/api/Reservation/";
+    var urlServicio = "http://150.230.93.159:8080/api/Reservation/";
     urlServicio += id;
     $.ajax({
         url: urlServicio,
@@ -217,7 +217,7 @@ function deleteReservation(id){
 // PUT para actualizar un carro
 function updateReservation(idReservation){
     $("#btn-upd-reservation").click(function () {
-        var urlServicio = "http://localhost:8080/api/Reservation/update";
+        var urlServicio = "http://150.230.93.159:8080/api/Reservation/update";
         var startDate = $("#Start-upd-reservation").val();
         var devolutionDate = $("#Devolution-upd-reservation").val();
         var status = $("#Status-upd-reservation").val();

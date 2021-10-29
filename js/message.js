@@ -3,7 +3,7 @@ $(document).ready(function () {
     
     // Para actualizar el menu de selección del cliente
     $.ajax({
-        url: "http://localhost:8080/api/Client/all",
+        url: "http://150.230.93.159:8080/api/Client/all",
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -24,7 +24,7 @@ $(document).ready(function () {
 
     // Para actualizar el menu de selección del Carro
     $.ajax({
-        url: "http://localhost:8080/api/Car/all",
+        url: "http://150.230.93.159:8080/api/Car/all",
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -46,7 +46,7 @@ $(document).ready(function () {
 
     // GET para actualizar la tabla de Mensaje
     $("#upd-message").click(function () {
-        var urlServicio = "http://localhost:8080/api/Message/all";
+        var urlServicio = "http://150.230.93.159:8080/api/Message/all";
         $("#Message-Table tbody").empty();
         $.ajax({
             url: urlServicio,
@@ -103,7 +103,7 @@ $(document).ready(function () {
 
     // POST para agregar un mensaje
     $("#Agregar-Mensaje").click(function () {
-        var urlServicio = "http://localhost:8080/api/Message/save";
+        var urlServicio = "http://150.230.93.159:8080/api/Message/save";
         var message = $("#Message").val();
         var client = $("#Client-Message").val();
         var car = $("#Car-Message").val();   
@@ -130,7 +130,7 @@ $(document).ready(function () {
 // DELETE para eliminar un carro
 function deleteMessage(id){
     alert("Se ha eliminado")
-    var urlServicio = "http://localhost:8080/api/Message/";
+    var urlServicio = "http://150.230.93.159:8080/api/Message/";
     urlServicio += id;
     $.ajax({
         url: urlServicio,
@@ -144,7 +144,7 @@ function deleteMessage(id){
 // PUT para actualizar un carro
 function updateMessage(idMessage){
     $("#btn-upd-message").click(function () {
-        var urlServicio = "http://localhost:8080/api/Message/update";
+        var urlServicio = "http://150.230.93.159:8080/api/Message/update";
         var message = $("#Text-upd-message").val();
         if (message != "" ){
             $.ajax({
@@ -169,7 +169,7 @@ function updateMessage(idMessage){
 
 //GET por id
 function getId(id){
-    var urlServicio = "http://localhost:8080/api/Message/";
+    var urlServicio = "http://150.230.93.159:8080/api/Message/";
     var message;
     $.ajax({
         url: urlServicio+id,

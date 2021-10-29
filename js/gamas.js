@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // GET para actualizar la tabla de Gamas
     $("#upd-gama").click(function (){
-        var urlServicio = "http://localhost:8080/api/Gama/all";
+        var urlServicio = "http://150.230.93.159:8080/api/Gama/all";
         $("#gama-table tbody").empty();
         $.ajax({
             url: urlServicio,
@@ -60,7 +60,7 @@ $(document).ready(function () {
 
     // POST para agregar una gama
     $("#Add-Gama").click(function (){
-        var urlServicio = "http://localhost:8080/api/Gama/save";
+        var urlServicio = "http://150.230.93.159:8080/api/Gama/save";
         var name = $("#Name-Gama").val();
         var description = $("#Description-Gama").val();
         if (name != "" && description != ""){
@@ -98,7 +98,7 @@ function deleteGama(id){
 // PUT para actualizar un carro
 function updateGama(idGama){
     $("#btn-upd-gama").click(function () {
-        var urlServicio = "http://localhost:8080/api/Gama/update";
+        var urlServicio = "http://150.230.93.159:8080/api/Gama/update";
         var name = $("#Name-upd-gama").val();
         var description = $("#Description-upd-gama").val();
         if (name != "" && description != ""){
@@ -126,7 +126,7 @@ function updateGama(idGama){
 
 //GET por id
 function getId(id){
-    var urlServicio = "http://localhost:8080/api/Gama/";
+    var urlServicio = "http://150.230.93.159:8080/api/Gama/";
     var name;
     var description;
     $.ajax({

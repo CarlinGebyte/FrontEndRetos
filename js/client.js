@@ -4,7 +4,7 @@ $(document).ready(function () {
     // Para los mejores clientes de la empresa
 
     $.ajax({
-        url: "http://localhost:8080/api/Reservation/report-clients",
+        url: "http://150.230.93.159:8080/api/Reservation/report-clients",
         type: "GET",
         cache: false,
         success: function (result) {
@@ -34,7 +34,7 @@ $(document).ready(function () {
 
     // GET para actualizar la tabla de clientes
     $("#upd-client").click(function () {
-        var urlServicio = "http://localhost:8080/api/Client/all";
+        var urlServicio = "http://150.230.93.159:8080/api/Client/all";
         $("#client-table tbody").empty();
         $.ajax({            
             url: urlServicio,
@@ -107,7 +107,7 @@ $(document).ready(function () {
 
     // POST para agregar un cliente
     $("#Agregar-Cliente").click(function () {
-        var urlServicio = "http://localhost:8080/api/Client/save";        
+        var urlServicio = "http://150.230.93.159:8080/api/Client/save";        
         var name = $("#Client-Name").val();
         var email = $("#Client-Email").val();
         var password = $("#Client-Password").val();
@@ -136,7 +136,7 @@ $(document).ready(function () {
 // DELETE para eliminar un carro
 function deleteClient(id){
     alert("Se ha eliminado")
-    var urlServicio = "http://localhost:8080/api/Client/";
+    var urlServicio = "http://150.230.93.159:8080/api/Client/";
     urlServicio += id;
     $.ajax({
         url: urlServicio,
@@ -149,7 +149,7 @@ function deleteClient(id){
 // PUT para actualizar un carro
 function updateClient(idClient){
     $("#btn-upd-client").click(function () {
-        var urlServicio = "http://localhost:8080/api/Client/update";
+        var urlServicio = "http://150.230.93.159:8080/api/Client/update";
         var name = $("#Name-upd-client").val();
         var age = $("#Age-upd-client").val();
         var password = $("#Password-upd-client").val();
@@ -178,7 +178,7 @@ function updateClient(idClient){
 
 //GET por id
 function getId(id){
-    var urlServicio = "http://localhost:8080/api/Client/";
+    var urlServicio = "http://150.230.93.159:8080/api/Client/";
     var name;
     var age;
     var password;

@@ -3,7 +3,7 @@ $(document).ready(function () {
     
     // Para actualizar el menu de selección de Gama
     $.ajax({
-        url: "http://localhost:8080/api/Gama/all",
+        url: "http://150.230.93.159:8080/api/Gama/all",
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -24,7 +24,7 @@ $(document).ready(function () {
 
     // GET para actualizar la tabla de carros
     $("#upd-table-car").click(function () {
-        var urlServicio = "http://localhost:8080/api/Car/all";
+        var urlServicio = "http://150.230.93.159:8080/api/Car/all";
         $("#table-car tbody").empty();
         $.ajax({
             url: urlServicio,
@@ -95,7 +95,7 @@ $(document).ready(function () {
 
     // POST para agregar un carro
     $("#Agregar-Carro").click(function () {
-        var urlServicio = "http://localhost:8080/api/Car/save";
+        var urlServicio = "http://150.230.93.159:8080/api/Car/save";
         var name = $("#Name-Car").val();
         var marca = $("#Brand-Car").val();
         var año = parseInt($("#Year-Car").val());
@@ -126,7 +126,7 @@ $(document).ready(function () {
 // DELETE para eliminar un carro
 function deleteCar(id){
     alert("Se ha eliminado")
-    var urlServicio = "http://localhost:8080/api/Car/";
+    var urlServicio = "http://150.230.93.159:8080/api/Car/";
     urlServicio += id;
     $.ajax({
         url: urlServicio,
@@ -139,7 +139,7 @@ function deleteCar(id){
 // PUT para actualizar un carro
 function updateCar(idCarro){
     $("#btn-upd-car").click(function () {
-        var urlServicio = "http://localhost:8080/api/Car/update";
+        var urlServicio = "http://150.230.93.159:8080/api/Car/update";
         var name = $("#Name-upd-car").val();
         var brand = $("#Brand-upd-car").val();
         var year = parseInt($("#Year-upd-car").val());
@@ -171,7 +171,7 @@ function updateCar(idCarro){
 
 //GET por id
 function getId(id){
-    var urlServicio = "http://localhost:8080/api/Car/";
+    var urlServicio = "http://150.230.93.159:8080/api/Car/";
     var name;
     var brand;
     var year;
