@@ -1,20 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
 
-/** UTILIDADES **/
-#btn-abrir-popup{
-    background-color: #0d6efd;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 50px;
-}
-#btn-abrir-popup a{
-    color: #fff;
-}
-
-.margin-button a:hover{
-    color: #000;
-}
-
 /** CONTAINER **/
 .container{
     z-index: 1;

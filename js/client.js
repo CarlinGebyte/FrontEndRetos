@@ -1,6 +1,37 @@
 $(document).ready(function () {
     jQuery.support.cors = true;
 
+    // Para los mejores clientes de la empresa
+
+    $.ajax({
+        url: "http://localhost:8080/api/Reservation/report-clients",
+        type: "GET",
+        cache: false,
+        success: function (result) {
+            var table = "<tr><th><span>ID Cliente</span></th><th>Nombre</th><th>Reservas Completadas</th></tr>";
+            var reservaciones;
+            var clientId;
+            var clientName;
+            var count = 0;
+            $("#Top-Clientes").hide();
+            $("#Best-Client tbody").empty();
+            for (var i = 0; i < result.length; i++) {
+                count = result[i]["total"];
+                reservaciones = result[i]["client"]["reservations"];
+                clientId = result[i]["client"]["idClient"];
+                clientName = result[i]["client"]["name"];
+
+                if(count > 0){
+                    $("#Top-Clientes").show();
+                    table += "<tr><td>"+ clientId +"</td><td>"+ clientName +"</td><td>"+ count +"</td>/tr>";
+                    $("#Best-Client tbody").empty();
+                    $("#Best-Client tbody").append(table);
+                }
+            }
+            
+        }
+    })
+
     // GET para actualizar la tabla de clientes
     $("#upd-client").click(function () {
         var urlServicio = "http://localhost:8080/api/Client/all";
@@ -13,8 +44,6 @@ $(document).ready(function () {
             cache: false,
 
             success: function (result) {
-                console.log("Entre a invocar el servicio REST");
-                console.log(result);
                 var i = 0;
                 var id = 0;
                 var nombre = "";
@@ -41,22 +70,21 @@ $(document).ready(function () {
                         if (JSON.stringify(reservaciones) != "[]"){
                             //delete reservaciones[j]["idReservation"];
                             delete reservaciones[j]["car"]["idCar"];
-                            delete reservaciones[j]["car"]["gama"]["idGama"];
-                            
+                            if(reservaciones[j]["car"]["gama"] != null){
+                                delete reservaciones[j]["car"]["gama"]["idGama"];
+                            }
                             for (var k = 0; k<reservaciones[j]["car"]["messages"].length;  k++){
                                 delete reservaciones[j]["car"]["messages"][k]["idMessage"];
                             }
-                        }else{
-                            console.log(JSON.stringify(reservaciones));
                         }
                     }
                     for (var j = 0; j<mensajes.length; j++){
                         if (JSON.stringify(mensajes) != "[]"){
                             delete mensajes[j]["idMessage"];
                             delete mensajes[j]["car"]["idCar"];
-                            delete mensajes[j]["car"]["gama"]["idGama"];
-                        }else{
-                            console.log(JSON.stringify(mensajes));
+                            if(mensajes[j]["car"]["gama"] != null){
+                                delete mensajes[j]["car"]["gama"]["idGama"];
+                            }
                         }
                     }
                     mensajes = JSON.stringify(result[i]["messages"]);
@@ -93,6 +121,7 @@ $(document).ready(function () {
                 dataType: "json",
                 cache: false,
                 success: function () {
+                    alert("Se ha agregado");
                     $("#Client-Name").val("");
                     $("#Client-Email").val("");
                     $("#Client-Password").val("");
@@ -109,7 +138,6 @@ function deleteClient(id){
     alert("Se ha eliminado")
     var urlServicio = "http://localhost:8080/api/Client/";
     urlServicio += id;
-    console.log(urlServicio);
     $.ajax({
         url: urlServicio,
         type: "DELETE",

@@ -11,6 +11,7 @@
     
 }
 
+
 body{
     background-color:  #dee2e6;
 }
@@ -95,17 +96,34 @@ div textarea {
     color: #fff;
     background-color: #0d6efd;
     padding: 5px 10px;
-    border: none;
+    border: 1px solid white;
+    position: relative;
     border-radius: 50px;
+    font-weight: 500;
 }
 
 .button:hover{
-    border:none;
-    color: #000;
+    color: #0d6efd;
+    background-color: #fff;
+    border: 1px solid #0d6efd;
+    transition: all 300ms ease;
+
 }
 
 .del-button{
     background-color: #FF2A16;
+    padding: 5px 10px;
+    border: none;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    border: 1px solid white;
+    color: #fff;
+    border-radius: 50px;
+}
+.del-button:hover{
+    background-color: #fff;
+    color: #FF2A16;
+    border: 1px solid #FF2A16;
 }
 
 .boton{
@@ -167,6 +185,47 @@ div textarea {
 
 
 
+/** RESERVACIONES **/
+
+
+
+#select-end-date, #select-start-date{
+    max-width: 180px;
+    display: inline;
+    margin: 20px 10px;
+}
+
+#Vs-Title{
+    margin-top: 130px;
+    font-size: 70px;
+    font-weight: 600;
+}
+
+#Completed-Vs-Cancelled{
+    display: flex;
+    width: 100%;
+}
+
+#Completed-Vs-Cancelled h5{
+    border: 1px solid #fff;
+    padding: 20px;
+    margin: 20px auto;
+    background-color: #0d6efd;
+    color: #fff;
+    font-size: 40px;
+    border-radius: 3%;
+}
+
+#Completed, #Cancelled{
+    font-size: 150px;
+    max-width: 150px;
+}
+
+
+/** Top Clientes **/
+#Top-Clientes{
+    margin-top: 70px;
+}
 
 /** FOOTER **/
 footer{

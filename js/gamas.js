@@ -4,7 +4,6 @@ $(document).ready(function () {
     // GET para actualizar la tabla de Gamas
     $("#upd-gama").click(function (){
         var urlServicio = "http://localhost:8080/api/Gama/all";
-        console.log(urlServicio)
         $("#gama-table tbody").empty();
         $.ajax({
             url: urlServicio,
@@ -14,8 +13,6 @@ $(document).ready(function () {
             cache: false,
 
             success: function (result) {
-                console.log("Entre a invocar el servicio REST");
-                console.log(result);
                 var i = 0;
                 var nombre = "";
                 var descripcion = "";
@@ -66,7 +63,6 @@ $(document).ready(function () {
         var urlServicio = "http://localhost:8080/api/Gama/save";
         var name = $("#Name-Gama").val();
         var description = $("#Description-Gama").val();
-        console.log(name);
         if (name != "" && description != ""){
             $.ajax({
                 url: urlServicio,
@@ -91,7 +87,6 @@ function deleteGama(id){
     alert("Se ha eliminado")
     var urlServicio = "http://150.230.93.159:8080/api/Gama/";
     urlServicio += id;
-    console.log(urlServicio);
     $.ajax({
         url: urlServicio,
         type: "DELETE",
@@ -134,7 +129,6 @@ function getId(id){
     var urlServicio = "http://localhost:8080/api/Gama/";
     var name;
     var description;
-    console.log(urlServicio)
     $.ajax({
         url: urlServicio+id,
         type: "GET",

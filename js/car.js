@@ -26,7 +26,6 @@ $(document).ready(function () {
     $("#upd-table-car").click(function () {
         var urlServicio = "http://localhost:8080/api/Car/all";
         $("#table-car tbody").empty();
-        console.log(urlServicio);
         $.ajax({
             url: urlServicio,
             type: "GET",
@@ -35,8 +34,6 @@ $(document).ready(function () {
             cache: false,
         
             success: function (result) {
-                console.log("Entre a invocar el servicio REST");
-                console.log(result);
                 var i = 0;
                 var nombre = "";
                 var marca = "";
@@ -67,28 +64,22 @@ $(document).ready(function () {
                             //delete reservaciones[k]["client"]["idClient"];
                             delete reservaciones[k]["client"]["password"];
                             delete reservaciones[k]["client"]["age"];
-                        }else{
-                            console.log(JSON.stringify(reservaciones));
                         }
                     }
 
                     for (var j = 0;  j<mensajes.length;  j++){
                         if (JSON.stringify(mensajes) != "[]"){
                             delete mensajes[j]["idMessage"]
-                        }else{
-                            console.log(JSON.stringify(mensajes));
                         }
                     }
-
-                    if (JSON.stringify(gama) != "[]"){
-                        delete gama["idGama"]
-                    }else{
-                        console.log(JSON.stringify(gama));
+                    if(gama != null){
+                        if (JSON.stringify(gama) != "[]"){
+                            delete gama["idGama"];
+                        }
                     }
                     gama = JSON.stringify(result[i]["gama"]);
                     mensajes = JSON.stringify(result[i]["messages"]);
                     reservaciones = JSON.stringify(result[i]["reservations"]);
-                    console.log(result[i]["idCar"]);
                     salidaFila = "<tr><td>" + nombre + "</td><td>" +
                         marca + "</td><td>" + año + "</td><td>" + descripcion + "</td><td>" +
                         gama + "</td><td>" + mensajes + "</td><td>" + reservaciones + "</td><td>" + "<button class='button del-button' onclick='deleteCar("+ result[i]["idCar"] +")'>Borrar</button>" + "<a href='#container-all' onclick='getId("+ result[i]["idCar"] +")'><button class='button' id='btn-abrir-popup' onclick='updateCar("+ result[i]["idCar"] +")'> Editar </button></a>" + "</td><tr>";
@@ -109,7 +100,7 @@ $(document).ready(function () {
         var marca = $("#Brand-Car").val();
         var año = parseInt($("#Year-Car").val());
         var descripcion = $("#Description-Car").val();
-        var gama = parseInt($("#Gama-Car").val());
+        var gama = $("#Gama-Car").val();
         if (name != "" && marca != "" && año != "" && descripcion != "" && gama != "") {
             $.ajax({
                 url: urlServicio,
@@ -136,9 +127,7 @@ $(document).ready(function () {
 function deleteCar(id){
     alert("Se ha eliminado")
     var urlServicio = "http://localhost:8080/api/Car/";
-    console.log(id)
     urlServicio += id;
-    console.log(urlServicio);
     $.ajax({
         url: urlServicio,
         type: "DELETE",
@@ -187,7 +176,6 @@ function getId(id){
     var brand;
     var year;
     var description;
-    console.log(urlServicio)
     $.ajax({
         url: urlServicio+id,
         type: "GET",

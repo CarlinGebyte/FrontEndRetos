@@ -1,5 +1,35 @@
 $(document).ready(function () {
     jQuery.support.cors = true; 
+    
+    // Para comparar reservas completadas vs Canceladas
+    $("#Search-reservation").click(function () {
+        $.ajax({
+            url: "http://localhost:8080/api/Reservation/report-status",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (result) {
+                var completed = result["completed"];
+                var cancelled = result["cancelled"];
+                if (completed != 0 && completed < 10){
+                    $("#Completed").empty();
+                    $("#Completed").append("0"+completed);
+                }else if (completed >= 10){
+                    $("#Completed").empty();
+                    $("#Completed").append(completed);
+                }
+                
+                if (cancelled > 0 && cancelled < 10){
+                    $("#Cancelled").empty();
+                    $("#Cancelled").append("0"+cancelled);
+                }else if (cancelled >= 10){
+                    $("#Cancelled").empty();
+                    $("#Cancelled").append(cancelled);                
+                }
+            }
+        })
+    })
 
     // Para actualizar el menu de selección del cliente
     $.ajax({
@@ -13,13 +43,10 @@ $(document).ready(function () {
             var clientSelect = "<option hidden value=''>Seleccionar Cliente</option>";   
             $("#Client-Reservation").empty();
             $("#Client-Reservation").append(clientSelect);  
-            for (var i = 0; i < result.length; i++) {
-                console.log(result[i]["name"]);        
+            for (var i = 0; i < result.length; i++) {      
                 clientSelect += "<option value='"+ result[i]["idClient"] +"'>"+ result[i]["name"] +"</option>";
                 $("#Client-Reservation").empty();
-                $("#Client-Reservation").append(clientSelect);
-                console.log(clientSelect);
-    
+                $("#Client-Reservation").append(clientSelect);    
             }//Fin del for
         }
     })
@@ -47,10 +74,40 @@ $(document).ready(function () {
     })
 
 
+    // Buscar Reservación por fecha
+
+    $("#Search-reservation").click(function () {
+        var startDate = $("#select-start-date").val();
+        var endDate = $("#select-end-date").val();// +"T00:00:00.000+00:00"
+        var count = 0;
+        
+        if(startDate != "" && endDate != ""){
+            $.ajax({
+                url: "http://localhost:8080/api/Reservation/report-dates/"+startDate+"/"+endDate,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+            
+                success: function (result) {
+                    if(startDate < endDate){
+                        count = result.length;
+                    }else{
+                        $("#select-end-date").val("");
+                        $("#select-start-date").val("");
+                        alert("ERROR");
+                    }
+                    $("#Reservation-count").empty();
+                    $("#Reservation-count").append(count);
+                }
+            })
+            return false            
+        } 
+    })
+
     // GET para actualizar la tabla de Reservaciones
     $("#upd-reservation").click(function (){
         var urlServicio = "http://localhost:8080/api/Reservation/all";
-        console.log(urlServicio)
         $("#reservation-table tbody").empty();
         $.ajax({
             url: urlServicio,
@@ -60,8 +117,6 @@ $(document).ready(function () {
             cache: false,
 
             success: function (result) {
-                console.log("Entre a invocar el servicio REST");
-                console.log(result);
                 var i = 0;
                 var idReservation = 0;
                 var startDate = "";
@@ -88,16 +143,14 @@ $(document).ready(function () {
 
                     if (JSON.stringify(car) != "[]"){
                         delete car["idCar"];
-                        delete car["gama"]["idGama"];
-                    }else{
-                        console.log(JSON.stringify(car));
+                        if(car["gama"] != null){
+                            delete car["gama"]["idGama"];
+                        }
                     }
                     if (JSON.stringify(client) != "[]"){
                         //delete client["idClient"];
                         delete client["password"];
                         delete client["age"];
-                    }else{
-                        console.log(JSON.stringify(car));
                     }
 
                     for (var j = 0; j<car["messages"].length;  j++){
@@ -152,7 +205,6 @@ function deleteReservation(id){
     alert("Se ha eliminado")
     var urlServicio = "http://localhost:8080/api/Reservation/";
     urlServicio += id;
-    console.log(urlServicio);
     $.ajax({
         url: urlServicio,
         type: "DELETE",

@@ -13,12 +13,10 @@ $(document).ready(function () {
             var clientSelect = "<option hidden value=''>Seleccionar Cliente</option>";   
             $("#Client-Message").empty();
             $("#Client-Message").append(clientSelect);  
-            for (var i = 0; i < result.length; i++) {
-                console.log(result[i]["name"]);        
+            for (var i = 0; i < result.length; i++) {     
                 clientSelect += "<option value='"+ result[i]["idClient"] +"'>"+ result[i]["name"] +"</option>";
                 $("#Client-Message").empty();
                 $("#Client-Message").append(clientSelect);
-                console.log(clientSelect);
     
             }//Fin del for
         }
@@ -58,8 +56,6 @@ $(document).ready(function () {
             cache: false,
 
             success: function (result) {
-                console.log("Entre a invocar el servicio REST");
-                console.log(result);
                 var i = 0;
                 var mensaje = "";
                 var car;
@@ -78,16 +74,14 @@ $(document).ready(function () {
 
                     if (JSON.stringify(car) != "[]"){
                         delete car["idCar"];
-                        delete car["gama"]["idMessage"];
-                    }else{
-                        console.log(JSON.stringify(car));
+                        if(car["gama"] != null) {
+                            delete car["gama"]["idMessage"];
+                        }
                     }
                     if (JSON.stringify(client) != "[]"){
                         //delete client["idClient"];
                         delete client["password"];
                         delete client["age"];
-                    }else{
-                        console.log(JSON.stringify(client));
                     }
 
                     car = JSON.stringify(result[i]["car"]);
@@ -111,10 +105,9 @@ $(document).ready(function () {
     $("#Agregar-Mensaje").click(function () {
         var urlServicio = "http://localhost:8080/api/Message/save";
         var message = $("#Message").val();
-        var client = parseInt($("#Client-Message").val());
-        var car = parseInt($("#Car-Message").val()); 
-        console.log(car)       
-        if (message != "" && client != NaN && car != NaN) {
+        var client = $("#Client-Message").val();
+        var car = $("#Car-Message").val();   
+        if (message != "" && client != "" && car != "") {
             $.ajax({
                 url: urlServicio,
                 type: "POST",
@@ -139,7 +132,6 @@ function deleteMessage(id){
     alert("Se ha eliminado")
     var urlServicio = "http://localhost:8080/api/Message/";
     urlServicio += id;
-    console.log(urlServicio);
     $.ajax({
         url: urlServicio,
         type: "DELETE",
@@ -179,7 +171,6 @@ function updateMessage(idMessage){
 function getId(id){
     var urlServicio = "http://localhost:8080/api/Message/";
     var message;
-    console.log(urlServicio)
     $.ajax({
         url: urlServicio+id,
         type: "GET",

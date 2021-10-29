@@ -87,15 +87,33 @@
                                 <input class="form-control" id='Devolution-upd-reservation' type="date" placeholder="Fecha devolución" required>
                                 <select class="form-control" id='Status-upd-reservation' type="text" required>
                                     <option hidden value="">Seleccionar estado</option>
-                                    <option>Programed</option>
-                                    <option>Created</option>
-                                    <option>Cancelled</option>
+                                    <option>Programado</option>
+                                    <option>Realizado</option>
+                                    <option>Cancelado</option>
                                 </select>
                                 <a href="#" class="btn-submit button" id="btn-upd-reservation">Actualizar</a>
                             </div>
                         </form>
                     </div>
                     <a href="#" id="btn-exit-popup" class="btn-exit-popup"><span>x</span></a>
+                </div>
+            </div>
+            <div class='container-search-reservation'>
+                <h5>RESERVACIONES</h5>
+                <form >
+                    <label for="select-start-date">Desde</label>
+                    <input type="date" class="form-control" id="select-start-date" required>
+                    <label for="select-end-date">Hasta</label>
+                    <input type="date" class="form-control" id="select-end-date" required>
+                    <button class="button" id="Search-reservation">Buscar</button>
+                </form>
+                <h5 id="Reservation-count"></h5>
+                <div id="container-vs">
+                    <div id="Completed-Vs-Cancelled">
+                        <h5 id="H5-Completed">Completadas <br><span id="Completed">00</span></h5>
+                        <h6 id="Vs-Title">VS</h6>
+                        <h5 id="H5-Cancelled">Canceladas <br><span id="Cancelled">00</span></h5>
+                    </div>
                 </div>
             </div>
         </div>
