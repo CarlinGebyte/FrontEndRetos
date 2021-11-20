@@ -109,14 +109,14 @@ $(document).ready(function () {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 cache: false,
-                    success: function () {
-                        alert("Se ha agregado");
-                        $("#Name-Car").val("");
-                        $("#Brand-Car").val("");
-                        $("#Year-Car").val("");
-                        $("#Description-Car").val("");
-                        $("#Gama-Car").val("");
-                    }
+                success: function () {
+                    alert("Se ha agregado");
+                    $("#Name-Car").val("");
+                    $("#Brand-Car").val("");
+                    $("#Year-Car").val("");
+                    $("#Description-Car").val("");
+                    $("#Gama-Car").val("");
+                }
             });  
             return false;
         } 
